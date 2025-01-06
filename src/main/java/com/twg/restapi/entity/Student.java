@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="student")
-public class Student {
+public class Student extends BaseEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,11 @@ public class Student {
 	@JsonManagedReference
 	private List<Address> address;
 	
+	//Constructor
 	public Student() {
 		
 	}
-
+	
 	public Student(int rollNo, String name, float percentage, String branch, List<Address> address) {
 		super();
 		this.rollNo = rollNo;
@@ -44,7 +45,7 @@ public class Student {
 	}
 
 
-
+	// Getters and Setters
 	public int getRollNo() {
 		return rollNo;
 	}
@@ -77,14 +78,4 @@ public class Student {
 	}
 
 
-
-	@Override
-	public String toString() {
-		return "Student [rollNo=" + rollNo + ", name=" + name + ", percentage=" + percentage + ", branch=" + branch
-				+ ", address=" + address + "]";
-	}
-	
-	
-	
-	
 }
