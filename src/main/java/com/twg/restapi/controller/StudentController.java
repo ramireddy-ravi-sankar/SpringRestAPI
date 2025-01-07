@@ -27,7 +27,7 @@ public class StudentController {
 
 	@GetMapping("/students")
 	public List<Student> getAllStudents(){
-		List<Student> students = studentService.findAll();
+		List<Student> students = studentService.getAll();
 		return students;
 	}
 	
@@ -35,7 +35,7 @@ public class StudentController {
 	@GetMapping("/student/{id}")
 	public Student getStudent(@PathVariable int id) {
 		
-		Student student=studentService.findById(id);
+		Student student=studentService.getById(id);
 		return student;
 	}
 	
@@ -43,7 +43,7 @@ public class StudentController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createStudent(@RequestBody Student student) {
 		
-		studentService.saveStudent(student);
+		studentService.save(student);
 	}
 	
 	@PutMapping("/student/update/{id}")
@@ -57,6 +57,6 @@ public class StudentController {
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deleteStudent(@PathVariable int id) {
 		
-		studentService.deleteStudent(id);
+		studentService.deleteById(id);
 	}
 }

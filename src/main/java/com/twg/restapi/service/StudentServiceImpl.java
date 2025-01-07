@@ -11,37 +11,24 @@ import com.twg.restapi.entity.Student;
 import com.twg.restapi.repository.StudentRepository;
 
 @Service
-public class StudentServiceImpl implements StudentService {
-	@Autowired
-	private StudentRepository studentRepository;
+public class StudentServiceImpl extends BaseServiceImpl<Student, Integer> implements StudentService {
 	
 	@Override
-	public List<Student> findAll() {
-		
-		return studentRepository.findAll();
-	}
-
-	@Override
-	public Student findById(int id) {
-		return studentRepository.findById(id).get();
-	}
-
-	@Override
 	@Transactional
-	public Student saveStudent(Student student) {	
+	public Student save(Student student) {	
 		if(student.getAddress()!=null) {
 			for(Address address:student.getAddress()) {
 				address.setStudent(student);
 			}
 		}
-		return studentRepository.save(student);
+		return super.save(student);
 	}
 
 	@Override
 	@Transactional
 	public Student updateStudent(int id, Student student) {
 		
-		Student currentStudent=studentRepository.findById(id).get();
+		Student currentStudent=getById(id);
 		
 		currentStudent.setName(student.getName());
 		currentStudent.setBranch(student.getBranch());
@@ -54,13 +41,7 @@ public class StudentServiceImpl implements StudentService {
 				currentStudent.getAddress().add(address);
 			}
 		}
-		return studentRepository.save(currentStudent);
-	}
-
-	@Override
-	public void deleteStudent(int id) {
-		studentRepository.deleteById(id);
-		
+		return super.save(currentStudent);
 	}
 
 }
